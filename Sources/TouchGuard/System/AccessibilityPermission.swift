@@ -1,0 +1,13 @@
+@preconcurrency import ApplicationServices
+
+enum AccessibilityPermission {
+    static var isGranted: Bool {
+        AXIsProcessTrusted()
+    }
+
+    @discardableResult
+    static func request() -> Bool {
+        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary
+        return AXIsProcessTrustedWithOptions(options)
+    }
+}
